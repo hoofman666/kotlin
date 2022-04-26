@@ -110,7 +110,7 @@ public class Parser {
 
         while (true) {
             ts.flags |= TokenStream.TSF_REGEXP;
-            tt = ts.getTokenWithComment();
+            tt = ts.getToken();
             ts.flags &= ~TokenStream.TSF_REGEXP;
 
             if (tt <= TokenStream.EOF) {
@@ -153,7 +153,7 @@ public class Parser {
         Node pn = nf.createBlock(ts.tokenPosition);
         try {
             int tt;
-            while ((tt = ts.peekTokenWithComment()) > TokenStream.EOF && tt != TokenStream.RC) {
+            while ((tt = ts.peekToken()) > TokenStream.EOF && tt != TokenStream.RC) {
                 if (tt == TokenStream.FUNCTION) {
                     ts.getToken();
                     pn.addChildToBack(function(ts, false));
@@ -334,7 +334,11 @@ public class Parser {
     private Node statement(TokenStream ts) throws IOException {
         CodePosition position = ts.lastPosition;
         try {
-            return statementHelper(ts);
+            Node result = statementHelper(ts);
+            result.setCommentsBeforeNode(getComments(ts));
+            ts.collectCommentsAfter();
+            result.setCommentsAfterNode(getComments(ts));
+            return result;
         }
         catch (JavaScriptException e) {
             // skip to end of statement
@@ -360,7 +364,7 @@ public class Parser {
 
         int lastExprType; // For wellTerminated
 
-        tt = ts.getTokenWithComment();
+        tt = ts.getToken();
         CodePosition position = ts.tokenPosition;
 
         switch (tt) {
@@ -594,14 +598,6 @@ public class Parser {
                 break;
             }
 
-            case TokenStream.SINGLE_LINE_COMMENT:
-                pn = nf.createSingleLineComment(ts.getString(), ts.tokenPosition);
-                break;
-
-            case TokenStream.MULTI_LINE_COMMENT:
-                pn = nf.createMultiLineComment(ts.getString(), ts.tokenPosition);
-                break;
-
             case TokenStream.RETURN: {
                 Node retExpr = null;
                 int lineno;
@@ -740,21 +736,42 @@ public class Parser {
 
     public Node expr(TokenStream ts, boolean inForInit) throws IOException, JavaScriptException {
         Node pn = assignExpr(ts, inForInit);
+
+
         while (ts.matchToken(TokenStream.COMMA)) {
             CodePosition position = ts.tokenPosition;
             pn = nf.createBinary(TokenStream.COMMA, pn, assignExpr(ts, inForInit), position);
         }
+
         return pn;
     }
 
     private Node assignExpr(TokenStream ts, boolean inForInit) throws IOException, JavaScriptException {
+       return assignExpr(ts, inForInit, false);
+    }
+    private Node assignExpr(TokenStream ts, boolean inForInit, boolean isFirstInArgumentsList) throws IOException, JavaScriptException {
+        Comment commentBeforeNode = null;
+
+        if (isFirstInArgumentsList) {
+            commentBeforeNode = getComments(ts);
+        }
+
         Node pn = condExpr(ts, inForInit);
+
+        if (!isFirstInArgumentsList) {
+            commentBeforeNode = getComments(ts);
+        }
+
+        pn.setCommentsBeforeNode(commentBeforeNode);
 
         if (ts.matchToken(TokenStream.ASSIGN)) {
             // omitted: "invalid assignment left-hand side" check.
             CodePosition position = ts.tokenPosition;
             pn = nf.createBinary(TokenStream.ASSIGN, ts.getOp(), pn, assignExpr(ts, inForInit), position);
         }
+
+        ts.collectCommentsAfter();
+        pn.setCommentsAfterNode(getComments(ts));
 
         return pn;
     }
@@ -950,8 +967,10 @@ public class Parser {
         matched = ts.matchToken(TokenStream.GWT);
         ts.flags &= ~TokenStream.TSF_REGEXP;
         if (!matched) {
+            boolean isFirst = true;
             do {
-                listNode.addChildToBack(assignExpr(ts, false));
+                listNode.addChildToBack(assignExpr(ts, false, isFirst));
+                isFirst = false;
             }
             while (ts.matchToken(TokenStream.COMMA));
 
@@ -1012,7 +1031,7 @@ public class Parser {
     ) throws IOException, JavaScriptException {
         lastExprEndLine = ts.getLineno();
         int tt;
-        while ((tt = ts.getTokenWithComment()) > TokenStream.EOF) {
+        while ((tt = ts.getToken()) > TokenStream.EOF) {
             CodePosition position = ts.tokenPosition;
             if (tt == TokenStream.DOT) {
                 ts.treatKeywordAsIdentifier = true;
@@ -1050,6 +1069,15 @@ public class Parser {
     }
 
     public Node primaryExpr(TokenStream ts) throws IOException, JavaScriptException {
+        Comment commentsBeforeNode = getComments(ts);
+        Node node = primaryExprHelper(ts);
+        node.setCommentsBeforeNode(commentsBeforeNode);
+        ts.collectCommentsAfter();
+        node.setCommentsAfterNode(getComments(ts));
+        return node;
+    }
+
+    private Node primaryExprHelper(TokenStream ts) throws IOException, JavaScriptException {
         int tt;
 
         Node pn;
@@ -1193,6 +1221,14 @@ public class Parser {
                 break;
         }
         return null; // should never reach here
+    }
+
+    private Comment getComments(TokenStream ts) {
+        Comment comment = ts.getHeadComment();
+        if (comment != null) {
+            ts.releaseComments();
+        }
+        return comment;
     }
 
     private int lastExprEndLine; // Hack to handle function expr termination.

@@ -81,182 +81,180 @@ public class TokenStream {
 
     public final static int
     // start enum
-        ERROR       = -1, // well-known as the only code < EOF
-        EOF         = 0,  // end of file token - (not EOF_CHAR)
-        EOL         = 1,  // end of line
-        // Beginning here are interpreter bytecodes. Their values
+        ERROR       = -1; // well-known as the only code < EOF
+        public final static int EOF         = 0;  // end of file token - (not EOF_CHAR)
+        public final static int EOL         = 1;  // end of line
+        public final static int// Beginning here are interpreter bytecodes. Their values
         // must not exceed 127.
-        POPV        = 2,
-        ENTERWITH   = 3,
-        LEAVEWITH   = 4,
-        RETURN      = 5,
-        GOTO        = 6,
-        IFEQ        = 7,
-        IFNE        = 8,
-        DUP         = 9,
-        SETNAME     = 10,
-        BITOR       = 11,
-        BITXOR      = 12,
-        BITAND      = 13,
-        EQ          = 14,
-        NE          = 15,
-        LT          = 16,
-        LE          = 17,
-        GT          = 18,
-        GE          = 19,
-        LSH         = 20,
-        RSH         = 21,
-        URSH        = 22,
-        ADD         = 23,
-        SUB         = 24,
-        MUL         = 25,
-        DIV         = 26,
-        MOD         = 27,
-        BITNOT      = 28,
-        NEG         = 29,
-        NEW         = 30,
-        DELPROP     = 31,
-        TYPEOF      = 32,
-        NAMEINC     = 33,
-        PROPINC     = 34,
-        ELEMINC     = 35,
-        NAMEDEC     = 36,
-        PROPDEC     = 37,
-        ELEMDEC     = 38,
-        GETPROP     = 39,
-        SETPROP     = 40,
-        GETELEM     = 41,
-        SETELEM     = 42,
-        CALL        = 43,
-        NAME        = 44,
-        NUMBER      = 45,
-        STRING      = 46,
-        ZERO        = 47,
-        ONE         = 48,
-        NULL        = 49,
-        THIS        = 50,
-        FALSE       = 51,
-        TRUE        = 52,
-        SHEQ        = 53,   // shallow equality (===)
-        SHNE        = 54,   // shallow inequality (!==)
-        CLOSURE     = 55,
-        REGEXP      = 56,
-        POP         = 57,
-        POS         = 58,
-        VARINC      = 59,
-        VARDEC      = 60,
-        BINDNAME    = 61,
-        THROW       = 62,
-        IN          = 63,
-        INSTANCEOF  = 64,
-        GOSUB       = 65,
-        RETSUB      = 66,
-        CALLSPECIAL = 67,
-        GETTHIS     = 68,
-        NEWTEMP     = 69,
-        USETEMP     = 70,
-        GETBASE     = 71,
-        GETVAR      = 72,
-        SETVAR      = 73,
-        UNDEFINED   = 74,
-        TRY         = 75,
-        ENDTRY      = 76,
-        NEWSCOPE    = 77,
-        TYPEOFNAME  = 78,
-        ENUMINIT    = 79,
-        ENUMNEXT    = 80,
-        GETPROTO    = 81,
-        GETPARENT   = 82,
-        SETPROTO    = 83,
-        SETPARENT   = 84,
-        SCOPE       = 85,
-        GETSCOPEPARENT = 86,
-        THISFN      = 87,
-        JTHROW      = 88,
-        // End of interpreter bytecodes
-        SEMI        = 89,  // semicolon
-        LB          = 90,  // left and right brackets
-        RB          = 91,
-        LC          = 92,  // left and right curlies (braces)
-        RC          = 93,
-        LP          = 94,  // left and right parentheses
-        GWT          = 95,
-        COMMA       = 96,  // comma operator
-        ASSIGN      = 97, // assignment ops (= += -= etc.)
-        HOOK        = 98, // conditional (?:)
-        COLON       = 99,
-        OR          = 100, // logical or (||)
-        AND         = 101, // logical and (&&)
-        EQOP        = 102, // equality ops (== !=)
-        RELOP       = 103, // relational ops (< <= > >=)
-        SHOP        = 104, // shift ops (<< >> >>>)
-        UNARYOP     = 105, // unary prefix operator
-        INC         = 106, // increment/decrement (++ --)
-        DEC         = 107,
-        DOT         = 108, // member operator (.)
-        PRIMARY     = 109, // true, false, null, this
-        FUNCTION    = 110, // function keyword
-        EXPORT      = 111, // export keyword
-        IMPORT      = 112, // import keyword
-        IF          = 113, // if keyword
-        ELSE        = 114, // else keyword
-        SWITCH      = 115, // switch keyword
-        CASE        = 116, // case keyword
-        DEFAULT     = 117, // default keyword
-        WHILE       = 118, // while keyword
-        DO          = 119, // do keyword
-        FOR         = 120, // for keyword
-        BREAK       = 121, // break keyword
-        CONTINUE    = 122, // continue keyword
-        VAR         = 123, // var keyword
-        WITH        = 124, // with keyword
-        CATCH       = 125, // catch keyword
-        FINALLY     = 126, // finally keyword
+        POPV        = 2;
+    public final static int ENTERWITH   = 3;
+    public final static int LEAVEWITH   = 4;
+    public final static int RETURN      = 5;
+    public final static int GOTO        = 6;
+    public final static int IFEQ        = 7;
+    public final static int IFNE        = 8;
+    public final static int DUP         = 9;
+    public final static int SETNAME     = 10;
+    public final static int BITOR       = 11;
+    public final static int BITXOR      = 12;
+    public final static int BITAND      = 13;
+    public final static int EQ          = 14;
+    public final static int NE          = 15;
+    public final static int LT          = 16;
+    public final static int LE          = 17;
+    public final static int GT          = 18;
+    public final static int GE          = 19;
+    public final static int LSH         = 20;
+    public final static int RSH         = 21;
+    public final static int URSH        = 22;
+    public final static int ADD         = 23;
+    public final static int SUB         = 24;
+    public final static int MUL         = 25;
+    public final static int DIV         = 26;
+    public final static int MOD         = 27;
+    public final static int BITNOT      = 28;
+    public final static int NEG         = 29;
+    public final static int NEW         = 30;
+    public final static int DELPROP     = 31;
+    public final static int TYPEOF      = 32;
+    public final static int NAMEINC     = 33;
+    public final static int PROPINC     = 34;
+    public final static int ELEMINC     = 35;
+    public final static int NAMEDEC     = 36;
+    public final static int PROPDEC     = 37;
+    public final static int ELEMDEC     = 38;
+    public final static int GETPROP     = 39;
+    public final static int SETPROP     = 40;
+    public final static int GETELEM     = 41;
+    public final static int SETELEM     = 42;
+    public final static int CALL        = 43;
+    public final static int NAME        = 44;
+    public final static int NUMBER      = 45;
+    public final static int STRING      = 46;
+    public final static int ZERO        = 47;
+    public final static int ONE         = 48;
+    public final static int NULL        = 49;
+    public final static int THIS        = 50;
+    public final static int FALSE       = 51;
+    public final static int TRUE        = 52;
+    public final static int SHEQ        = 53;   // shallow equality (===)
+        public final static int SHNE        = 54;   // shallow inequality (!==)
+        public final static int CLOSURE     = 55;
+    public final static int REGEXP      = 56;
+    public final static int POP         = 57;
+    public final static int POS         = 58;
+    public final static int VARINC      = 59;
+    public final static int VARDEC      = 60;
+    public final static int BINDNAME    = 61;
+    public final static int THROW       = 62;
+    public final static int IN          = 63;
+    public final static int INSTANCEOF  = 64;
+    public final static int GOSUB       = 65;
+    public final static int RETSUB      = 66;
+    public final static int CALLSPECIAL = 67;
+    public final static int GETTHIS     = 68;
+    public final static int NEWTEMP     = 69;
+    public final static int USETEMP     = 70;
+    public final static int GETBASE     = 71;
+    public final static int GETVAR      = 72;
+    public final static int SETVAR      = 73;
+    public final static int UNDEFINED   = 74;
+    public final static int TRY         = 75;
+    public final static int ENDTRY      = 76;
+    public final static int NEWSCOPE    = 77;
+    public final static int TYPEOFNAME  = 78;
+    public final static int ENUMINIT    = 79;
+    public final static int ENUMNEXT    = 80;
+    public final static int GETPROTO    = 81;
+    public final static int GETPARENT   = 82;
+    public final static int SETPROTO    = 83;
+    public final static int SETPARENT   = 84;
+    public final static int SCOPE       = 85;
+    public final static int GETSCOPEPARENT = 86;
+    public final static int THISFN      = 87;
+    public final static int JTHROW      = 88;
+    public final static int// End of interpreter bytecodes
+        SEMI        = 89;  // semicolon
+        public final static int LB          = 90;  // left and right brackets
+        public final static int RB          = 91;
+    public final static int LC          = 92;  // left and right curlies (braces)
+        public final static int RC          = 93;
+    public final static int LP          = 94;  // left and right parentheses
+        public final static int GWT          = 95;
+    public final static int COMMA       = 96;  // comma operator
+        public final static int ASSIGN      = 97; // assignment ops (= += -= etc.)
+        public final static int HOOK        = 98; // conditional (?:)
+        public final static int COLON       = 99;
+    public final static int OR          = 100; // logical or (||)
+        public final static int AND         = 101; // logical and (&&)
+        public final static int EQOP        = 102; // equality ops (== !=)
+        public final static int RELOP       = 103; // relational ops (< <= > >=)
+        public final static int SHOP        = 104; // shift ops (<< >> >>>)
+        public final static int UNARYOP     = 105; // unary prefix operator
+        public final static int INC         = 106; // increment/decrement (++ --)
+        public final static int DEC         = 107;
+    public final static int DOT         = 108; // member operator (.)
+        public final static int PRIMARY     = 109; // true, false, null, this
+        public final static int FUNCTION    = 110; // function keyword
+        public final static int EXPORT      = 111; // export keyword
+        public final static int IMPORT      = 112; // import keyword
+        public final static int IF          = 113; // if keyword
+        public final static int ELSE        = 114; // else keyword
+        public final static int SWITCH      = 115; // switch keyword
+        public final static int CASE        = 116; // case keyword
+        public final static int DEFAULT     = 117; // default keyword
+        public final static int WHILE       = 118; // while keyword
+        public final static int DO          = 119; // do keyword
+        public final static int FOR         = 120; // for keyword
+        public final static int BREAK       = 121; // break keyword
+        public final static int CONTINUE    = 122; // continue keyword
+        public final static int VAR         = 123; // var keyword
+        public final static int WITH        = 124; // with keyword
+        public final static int CATCH       = 125; // catch keyword
+        public final static int FINALLY     = 126; // finally keyword
 
-        /** Added by Mike - these are JSOPs in the jsref, but I
+        public final static int /** Added by Mike - these are JSOPs in the jsref, but I
          * don't have them yet in the java implementation...
          * so they go here.  Also whatever I needed.
 
          * Most of these go in the 'op' field when returning
          * more general token types, eg. 'DIV' as the op of 'ASSIGN'.
          */
-        NOP         = 128, // NOP
-        NOT         = 129, // etc.
-        PRE         = 130, // for INC, DEC nodes.
-        POST        = 131,
+        NOP         = 128; // NOP
+        public final static int NOT         = 129; // etc.
+        public final static int PRE         = 130; // for INC, DEC nodes.
+        public final static int POST        = 131;
 
-        /**
+    public final static int /**
          * For JSOPs associated with keywords...
          * eg. op = THIS; token = PRIMARY
          */
 
-        VOID        = 132,
+        VOID        = 132;
 
-        /* types used for the parse tree - these never get returned
+    public final static int/* types used for the parse tree - these never get returned
          * by the scanner.
          */
-        BLOCK       = 133, // statement block
-        ARRAYLIT    = 134, // array literal
-        OBJLIT      = 135, // object literal
-        LABEL       = 136, // label
-        TARGET      = 137,
-        LOOP        = 138,
-        ENUMDONE    = 139,
-        EXPRSTMT    = 140,
-        PARENT      = 141,
-        CONVERT     = 142,
-        JSR         = 143,
-        NEWLOCAL    = 144,
-        USELOCAL    = 145,
-        DEBUGGER    = 146,
-        SCRIPT      = 147,   // top-level node for entire script
+        BLOCK       = 133; // statement block
+        public final static int ARRAYLIT    = 134; // array literal
+        public final static int OBJLIT      = 135; // object literal
+        public final static int LABEL       = 136; // label
+        public final static int TARGET      = 137;
+    public final static int LOOP        = 138;
+    public final static int ENUMDONE    = 139;
+    public final static int EXPRSTMT    = 140;
+    public final static int PARENT      = 141;
+    public final static int CONVERT     = 142;
+    public final static int JSR         = 143;
+    public final static int NEWLOCAL    = 144;
+    public final static int USELOCAL    = 145;
+    public final static int DEBUGGER    = 146;
+    public final static int SCRIPT      = 147;   // top-level node for entire script
 
-        LAST_TOKEN  = 147,
-        NUMBER_INT  = 148,
-        SINGLE_LINE_COMMENT  = 149,
-        MULTI_LINE_COMMENT  = 150,
+        public final static int LAST_TOKEN  = 147;
+    public final static int NUMBER_INT  = 148;
 
-        // This value is only used as a return value for getTokenHelper,
+    public final static int// This value is only used as a return value for getTokenHelper,
         // which is only called from getToken and exists to avoid an excessive
         // recursion problem if a number of lines in a row are comments.
         RETRY_TOKEN     = 65535;
@@ -415,8 +413,6 @@ public class TokenStream {
                 case NEWLOCAL:        return "newlocal";
                 case USELOCAL:        return "uselocal";
                 case SCRIPT:          return "script";
-                case SINGLE_LINE_COMMENT:          return "singlelinecomment";
-                case MULTI_LINE_COMMENT:           return "multilinecomment";
             }
             return "<unknown="+token+">";
         }
@@ -539,10 +535,6 @@ public class TokenStream {
         return peekTokenHelper(getToken());
     }
 
-    public int peekTokenWithComment() throws IOException {
-        return peekTokenHelper(getTokenWithComment());
-    }
-
     private int peekTokenHelper(int token) throws IOException {
         this.pushbackToken = token;
         lastPosition = secondToLastPosition;
@@ -596,15 +588,8 @@ public class TokenStream {
         in.unread();
     }
 
-    public int getTokenWithComment() throws IOException {
-        lastTokenPosition = tokenPosition;
-        int c;
-        do {
-            c = getTokenHelper();
-        } while (c == RETRY_TOKEN);
-
-        updatePosition();
-        return c;
+    public void collectCommentsAfter() throws IOException {
+        ungetToken(getToken());
     }
 
     public int getToken() throws IOException {
@@ -612,7 +597,7 @@ public class TokenStream {
         int c;
         do {
             c = getTokenHelper();
-        } while (c == RETRY_TOKEN || c == SINGLE_LINE_COMMENT || c == MULTI_LINE_COMMENT);
+        } while (c == RETRY_TOKEN);
 
         updatePosition();
         return c;
@@ -1084,8 +1069,8 @@ public class TokenStream {
                 while ((c = in.read()) != -1 && c != '\n') {
                     addToString(c);
                 }
-                this.string = getStringFromBuffer();
-                return SINGLE_LINE_COMMENT;
+                addCommentToQueue(new Comment(getStringFromBuffer(), false));
+                return RETRY_TOKEN;
             }
             if (in.match('*')) {
                 stringBufferTop = 0;
@@ -1097,8 +1082,8 @@ public class TokenStream {
                     reportTokenError("msg.unterminated.comment", null);
                     return ERROR;
                 }
-                this.string = getStringFromBuffer();
-                return MULTI_LINE_COMMENT;  // `goto retry'
+                addCommentToQueue(new Comment(getStringFromBuffer(), true));
+                return RETRY_TOKEN;  // `goto retry'
             }
 
             // is it a regexp?
@@ -1481,6 +1466,16 @@ public class TokenStream {
         }
     }
 
+    private void addCommentToQueue(Comment comment) {
+        if (headComment == null) {
+           headComment = comment;
+           lastComment = comment;
+        } else {
+            lastComment.setNext(comment);
+            lastComment = comment;
+        }
+    }
+
     public String getSourceName() { return sourceName; }
     public int getLineno() { return in.getLineno(); }
     public int getOp() { return op; }
@@ -1490,6 +1485,13 @@ public class TokenStream {
     public int getOffset() { return in.getOffset(); }
     public int getTokenno() { return tokenno; }
     public boolean eof() { return in.eof(); }
+
+    public Comment getHeadComment() { return headComment; }
+
+    public void releaseComments() {
+        headComment = null;
+        lastComment = null;
+    }
 
     // instance variables
     private LineBuffer in;
@@ -1510,6 +1512,10 @@ public class TokenStream {
     CodePosition lastPosition;
     CodePosition tokenPosition;
     CodePosition lastTokenPosition;
+
+    private Comment headComment;
+
+    private Comment lastComment;
 
     private int op;
     public boolean treatKeywordAsIdentifier;

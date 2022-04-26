@@ -184,6 +184,10 @@ public class DirectiveTestUtils {
             this.isElementExists = isElementExists;
         }
 
+        protected boolean isElementExists() {
+            return isElementExists;
+        }
+
         @Override
         void processEntry(@NotNull JsNode ast, @NotNull ArgumentsHelper arguments) throws Exception {
             loadArguments(arguments);
@@ -306,67 +310,25 @@ public class DirectiveTestUtils {
 
         @Override
         protected JsVisitor getJsVisitorForElement() {
-            return isMultiLine ? new RecursiveJsVisitor() {
+            return new RecursiveJsVisitor() {
                 @Override
-                public void visitMultiLineComment(@NotNull JsMultiLineComment comment) {
-                    if (isTheSameText(comment.getText(), text)) {
-                        setElementExists(true);
+                protected void visitElement(@NotNull JsNode node) {
+                    checkCommentExistsIn(node.getCommentsBeforeNode());
+                    checkCommentExistsIn(node.getCommentsAfterNode());
+                    checkCommentExistsIn(Arrays.asList(node));
+                    super.visitElement(node);
+                }
+                private void checkCommentExistsIn(List<JsComment> comments) {
+                    if (comments == null) return;
+                    for (JsComment comment : comments) {
+                        if (isNeededCommentType(comment) && comment.getText().trim().equals(text)) {
+                            setElementExists(true);
+                        }
                     }
                 }
-            } : new RecursiveJsVisitor() {
-                @Override
-                public void visitSingleLineComment(@NotNull JsSingleLineComment comment) {
-                    if (isTheSameText(comment.getText(), text)) {
-                        setElementExists(true);
-                    }
-                }
-            };
-        }
 
-        @Override
-        protected void loadArguments(@NotNull ArgumentsHelper arguments) {
-            this.text = arguments.findNamedArgument("text").replace("\\n", System.lineSeparator());
-            this.isMultiLine = Boolean.parseBoolean(arguments.findNamedArgument("multiline"));
-        }
-
-        private boolean isTheSameText(String str1, String str2) {
-            List<String> lines1 = StringsKt.lines(str1);
-            List<String> lines2 = StringsKt.lines(str2);
-
-            if (lines1.size() != lines2.size()) return false;
-
-            for (int i = 0; i < lines1.size(); i++) {
-                if (!lines1.get(i).trim().equals(lines2.get(i).trim())) return false;
-            }
-            
-            return true;
-        }
-    };
-
-    private static final DirectiveHandler CHECK_COMMENT_DOESNT_EXIST = new NodeExistenceDirective("CHECK_COMMENT_DOESNT_EXIST", false) {
-        private String text;
-        private boolean isMultiLine;
-
-        @Override
-        protected String getTextForError() {
-            return (isMultiLine ? "Multi line" : "Single line") + " comment with text '" + text + "' exists, but it should not";
-        }
-
-        @Override
-        protected JsVisitor getJsVisitorForElement() {
-            return isMultiLine ? new RecursiveJsVisitor() {
-                @Override
-                public void visitMultiLineComment(@NotNull JsMultiLineComment comment) {
-                    if (comment.getText().trim() == text) {
-                        setElementExists(true);
-                    }
-                }
-            } : new RecursiveJsVisitor() {
-                @Override
-                public void visitSingleLineComment(@NotNull JsSingleLineComment comment) {
-                    if (comment.getText().trim() == text) {
-                        setElementExists(true);
-                    }
+                private boolean isNeededCommentType(JsComment comment) {
+                    return isMultiLine ? comment instanceof JsMultiLineComment : comment instanceof  JsSingleLineComment;
                 }
             };
         }
@@ -496,7 +458,6 @@ public class DirectiveTestUtils {
             FUNCTIONS_HAVE_SAME_LINES,
             ONLY_THIS_QUALIFIED_REFERENCES,
             CHECK_COMMENT_EXISTS,
-            CHECK_COMMENT_DOESNT_EXIST,
             COUNT_LABELS,
             COUNT_VARS,
             COUNT_BREAKS,
