@@ -51,8 +51,12 @@ public class JsAstMapper {
 
     private JsNode mapWithComments(Node node) throws JsParserException {
         JsNode jsNode = mapWithoutLocation(node);
-        jsNode.setCommentsBeforeNode(mapComments(node.getCommentsBeforeNode()));
-        jsNode.setCommentsAfterNode(mapComments(node.getCommentsAfterNode()));
+
+        if (jsNode != null) {
+            jsNode.setCommentsBeforeNode(mapComments(node.getCommentsBeforeNode()));
+            jsNode.setCommentsAfterNode(mapComments(node.getCommentsAfterNode()));
+        }
+
         return jsNode;
     }
 
