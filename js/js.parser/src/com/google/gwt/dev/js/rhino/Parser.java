@@ -747,20 +747,9 @@ public class Parser {
     }
 
     private Node assignExpr(TokenStream ts, boolean inForInit) throws IOException, JavaScriptException {
-       return assignExpr(ts, inForInit, false);
-    }
-    private Node assignExpr(TokenStream ts, boolean inForInit, boolean isFirstInArgumentsList) throws IOException, JavaScriptException {
-        Comment commentBeforeNode = null;
-
-        if (isFirstInArgumentsList) {
-            commentBeforeNode = getComments(ts);
-        }
+        Comment commentBeforeNode = getComments(ts);;
 
         Node pn = condExpr(ts, inForInit);
-
-        if (!isFirstInArgumentsList) {
-            commentBeforeNode = getComments(ts);
-        }
 
         pn.setCommentsBeforeNode(commentBeforeNode);
 
@@ -967,12 +956,9 @@ public class Parser {
         matched = ts.matchToken(TokenStream.GWT);
         ts.flags &= ~TokenStream.TSF_REGEXP;
         if (!matched) {
-            boolean isFirst = true;
             do {
-                listNode.addChildToBack(assignExpr(ts, false, isFirst));
-                isFirst = false;
-            }
-            while (ts.matchToken(TokenStream.COMMA));
+                listNode.addChildToBack(assignExpr(ts, false));
+            } while (ts.matchToken(TokenStream.COMMA));
 
             mustMatchToken(ts, TokenStream.GWT, "msg.no.paren.arg");
         }

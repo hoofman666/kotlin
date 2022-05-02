@@ -41,6 +41,8 @@ abstract class AbstractNode extends HasMetadata implements JsNode {
         if (otherSource != null) {
             source(otherSource);
         }
+        setCommentsBeforeNode(other.getCommentsBeforeNode());
+        setCommentsAfterNode(other.getCommentsAfterNode());
         return (T) this;
     }
 

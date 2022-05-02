@@ -963,23 +963,7 @@ public class JsToStringGenerationVisitor extends JsVisitor {
             // labels can be either string, integral, or decimal literals
             if (labelExpr instanceof JsNameRef) {
                 p.print(((JsNameRef) labelExpr).getIdent());
-            }
-            else if (labelExpr instanceof JsStringLiteral) {
-                JsStringLiteral stringLiteral = (JsStringLiteral) labelExpr;
-                String value = stringLiteral.getValue();
-                boolean isValidIdentifier = IdentifierPolicyKt.isValidES5Identifier(value);
-
-                if (!isValidIdentifier)  {
-                    p.print('\'');
-                }
-
-                p.print(value);
-
-                if (!isValidIdentifier)  {
-                    p.print('\'');
-                }
-            }
-            else {
+            } else {
                 accept(labelExpr);
             }
 

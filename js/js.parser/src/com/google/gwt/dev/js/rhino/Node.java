@@ -252,12 +252,12 @@ public class Node implements Cloneable {
     }
 
     public void setCommentsBeforeNode(Comment comment) {
-        if (commentBefore != null && comment == null) return;
+        if (comment == null) return;
         commentBefore = comment;
     }
 
     public void setCommentsAfterNode(Comment comment) {
-        if (commentAfter != null && comment == null) return;
+        if (comment == null) return;
         commentAfter = comment;
     }
 
