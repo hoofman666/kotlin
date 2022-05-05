@@ -842,11 +842,15 @@ public class JsToStringGenerationVisitor extends JsVisitor {
 
     @Override
     public void visitNameRef(@NotNull JsNameRef nameRef) {
+        visitNameRef(nameRef, true);
+    }
+
+    public void visitNameRef(@NotNull JsNameRef nameRef, boolean withQualifier) {
         pushSourceInfo(nameRef.getSource());
         printCommentsBeforeNode(nameRef);
 
         JsExpression qualifier = nameRef.getQualifier();
-        if (qualifier != null) {
+        if (qualifier != null && withQualifier) {
             boolean enclose;
             if (qualifier instanceof JsLiteral.JsValueLiteral) {
                 // "42.foo" is not allowed, but "(42).foo" is.
@@ -971,7 +975,7 @@ public class JsToStringGenerationVisitor extends JsVisitor {
             }
             // labels can be either string, integral, or decimal literals
             if (labelExpr instanceof JsNameRef) {
-                visitNameRef((JsNameRef) labelExpr);
+                visitNameRef((JsNameRef) labelExpr, false);
             } else {
                 accept(labelExpr);
             }
