@@ -747,7 +747,7 @@ public class Parser {
     }
 
     private Node assignExpr(TokenStream ts, boolean inForInit) throws IOException, JavaScriptException {
-        Comment commentBeforeNode = getComments(ts);;
+        Comment commentBeforeNode = getComments(ts);
 
         Node pn = condExpr(ts, inForInit);
 
