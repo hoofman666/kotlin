@@ -334,8 +334,10 @@ public class Parser {
     private Node statement(TokenStream ts) throws IOException {
         CodePosition position = ts.lastPosition;
         try {
+            Comment commentsBefore = getComments(ts);
+            ts.collectCommentsAfter();
             Node result = statementHelper(ts);
-            result.setCommentsBeforeNode(getComments(ts));
+            result.setCommentsBeforeNode(commentsBefore);
             ts.collectCommentsAfter();
             result.setCommentsAfterNode(getComments(ts));
             return result;
