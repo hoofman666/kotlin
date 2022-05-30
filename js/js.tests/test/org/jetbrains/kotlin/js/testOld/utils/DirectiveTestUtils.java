@@ -315,8 +315,17 @@ public class DirectiveTestUtils {
                 protected void visitElement(@NotNull JsNode node) {
                     checkCommentExistsIn(node.getCommentsBeforeNode());
                     checkCommentExistsIn(node.getCommentsAfterNode());
-                    checkCommentExistsIn(Arrays.asList(node));
                     super.visitElement(node);
+                }
+
+                @Override
+                public void visitSingleLineComment(JsSingleLineComment comment) {
+                    checkCommentExistsIn(Arrays.asList(comment));
+                }
+
+                @Override
+                public void visitMultiLineComment(JsMultiLineComment comment) {
+                    checkCommentExistsIn(Arrays.asList(comment));
                 }
                 private void checkCommentExistsIn(List<JsComment> comments) {
                     if (comments == null) return;
