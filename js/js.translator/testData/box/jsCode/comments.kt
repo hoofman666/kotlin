@@ -25,6 +25,13 @@
 // CHECK_COMMENT_EXISTS: text="descriptor:" multiline=true
 // CHECK_COMMENT_EXISTS: text="Descriptor end" multiline=true
 
+/*
+* java.lang.AssertionError(Multi line comment with text 'The header multiline\ncomment' doesn't exist)
+  java.lang.AssertionError(Multi line comment with text '1Multi line comment\n' doesn't exist)
+  java.lang.AssertionError(Multi line comment with text '2Multi line comment\n\n\n' doesn't exist)
+  java.lang.AssertionError(Multi line comment with text '3Multi line\n\n\n\n\ncomment\n' doesn't exist)
+* */
+
 package foo
 
 fun box(): String {

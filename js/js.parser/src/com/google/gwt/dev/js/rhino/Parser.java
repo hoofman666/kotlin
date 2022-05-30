@@ -701,9 +701,7 @@ public class Parser {
             }
         }
 
-        if (pn.type != TokenStream.SINGLE_LINE_COMMENT && pn.type != TokenStream.MULTI_LINE_COMMENT) {
-            ts.matchToken(TokenStream.SEMI);
-        }
+        ts.matchToken(TokenStream.SEMI);
 
         return pn;
     }

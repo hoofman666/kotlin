@@ -330,7 +330,7 @@ public class DirectiveTestUtils {
                 private void checkCommentExistsIn(List<JsComment> comments) {
                     if (comments == null) return;
                     for (JsComment comment : comments) {
-                        if (isNeededCommentType(comment) && comment.getText().trim().equals(text)) {
+                        if (isNeededCommentType(comment) && isTheSameText(comment.getText(), text)) {
                             setElementExists(true);
                         }
                     }
@@ -344,9 +344,23 @@ public class DirectiveTestUtils {
 
         @Override
         protected void loadArguments(@NotNull ArgumentsHelper arguments) {
-            this.text = arguments.findNamedArgument("text");
+            this.text = arguments.findNamedArgument("text").replace("\\n", System.lineSeparator());;
             this.isMultiLine = Boolean.parseBoolean(arguments.findNamedArgument("multiline"));
         }
+
+        private boolean isTheSameText(String str1, String str2) {
+            List<String> lines1 = StringsKt.lines(str1);
+            List<String> lines2 = StringsKt.lines(str2);
+
+            if (lines1.size() != lines2.size()) return false;
+
+            for (int i = 0; i < lines1.size(); i++) {
+                if (!lines1.get(i).trim().equals(lines2.get(i).trim())) return false;
+            }
+
+            return true;
+        }
+
     };
 
     private static final DirectiveHandler ONLY_THIS_QUALIFIED_REFERENCES = new DirectiveHandler("ONLY_THIS_QUALIFIED_REFERENCES") {
