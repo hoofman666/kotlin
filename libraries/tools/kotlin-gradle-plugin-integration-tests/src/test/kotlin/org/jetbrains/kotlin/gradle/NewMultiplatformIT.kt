@@ -1955,6 +1955,30 @@ class NewMultiplatformIT : BaseGradleIT() {
         }
     }
 
+    private fun testWasmTest(engine: String, name: String) = with(
+        Project("new-mpp-wasm-test", gradleVersionRequirement = GradleVersionRequired.AtLeast(TestVersions.Gradle.G_7_0))
+    ) {
+        setupWorkingDir()
+        gradleBuildScript().modify {
+            transformBuildScriptWithPluginsDsl(it)
+                .replace("<JsEngine>", engine)
+        }
+        build(":wasm${name}Test") {
+            assertTasksExecuted(":compileKotlinWasm")
+            assertTasksFailed(":wasm${name}Test")
+            assertTestResults(
+                "testProject/new-mpp-wasm-test/TEST-${engine}.xml",
+                "wasm${name}Test"
+            )
+        }
+    }
+
+    @Test
+    fun testWasmNodeTest() = testWasmTest("nodejs", "Node")
+
+    @Test
+    fun testWasmD8Test() = testWasmTest("d8", "D8")
+
     @Test
     fun testResolveMetadataCompileClasspathKt50925() {
         Project("lib", directoryPrefix =  "kt-50925-resolve-metadata-compile-classpath").apply {
