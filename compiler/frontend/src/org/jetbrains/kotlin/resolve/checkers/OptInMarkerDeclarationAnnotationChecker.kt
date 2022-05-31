@@ -16,6 +16,7 @@ import org.jetbrains.kotlin.descriptors.annotations.KotlinTarget.*
 import org.jetbrains.kotlin.diagnostics.Errors
 import org.jetbrains.kotlin.psi.KtAnnotated
 import org.jetbrains.kotlin.psi.KtAnnotationEntry
+import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.resolve.AdditionalAnnotationChecker
 import org.jetbrains.kotlin.resolve.AnnotationChecker
 import org.jetbrains.kotlin.resolve.BindingContext
@@ -81,6 +82,9 @@ class OptInMarkerDeclarationAnnotationChecker(private val module: ModuleDescript
 
         if (hasOptIn) {
             checkMarkerTargetsAndRetention(entries, trace)
+            if (annotated is KtClass && annotated.isAnnotation() && annotated.primaryConstructor?.valueParameters?.isNotEmpty() == true) {
+                trace.report(Errors.OPT_IN_MARKER_WITH_PARAMETERS.on(languageVersionSettings, annotated))
+            }
         }
     }
 

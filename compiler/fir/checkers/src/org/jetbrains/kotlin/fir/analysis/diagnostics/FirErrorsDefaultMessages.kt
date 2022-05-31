@@ -370,6 +370,7 @@ import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_MARKER_CAN
 import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_MARKER_ON_OVERRIDE
 import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_MARKER_ON_OVERRIDE_WARNING
 import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_MARKER_ON_WRONG_TARGET
+import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_MARKER_WITH_PARAMETERS
 import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_MARKER_WITH_WRONG_RETENTION
 import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_MARKER_WITH_WRONG_TARGET
 import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors.OPT_IN_OVERRIDE
@@ -854,6 +855,7 @@ object FirErrorsDefaultMessages : BaseDiagnosticRendererFactory() {
             "Opt-in requirement marker annotation cannot be used with SOURCE retention. Please replace retention with BINARY"
         )
         map.put(OPT_IN_MARKER_ON_WRONG_TARGET, "Opt-in requirement marker annotation cannot be used on {0}", STRING)
+        map.put(OPT_IN_MARKER_WITH_PARAMETERS, "Opt-in requirement marker annotation cannot have parameters")
         map.put(
             OPT_IN_MARKER_ON_OVERRIDE,
             "Opt-in requirement marker annotation on override requires the same marker on base declaration"

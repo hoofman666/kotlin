@@ -902,6 +902,16 @@ internal class OptInMarkerOnOverrideWarningImpl(
     override val token: KtLifetimeToken,
 ) : KtFirDiagnostic.OptInMarkerOnOverrideWarning(), KtAbstractFirDiagnostic<KtAnnotationEntry>
 
+internal class OptInMarkerWithParametersErrorImpl(
+    override val firDiagnostic: KtPsiDiagnostic,
+    override val token: KtLifetimeToken,
+) : KtFirDiagnostic.OptInMarkerWithParametersError(), KtAbstractFirDiagnostic<KtClass>
+
+internal class OptInMarkerWithParametersWarningImpl(
+    override val firDiagnostic: KtPsiDiagnostic,
+    override val token: KtLifetimeToken,
+) : KtFirDiagnostic.OptInMarkerWithParametersWarning(), KtAbstractFirDiagnostic<KtClass>
+
 internal class ExposedTypealiasExpandedTypeImpl(
     override val elementVisibility: EffectiveVisibility,
     override val restrictingDeclaration: KtSymbol,

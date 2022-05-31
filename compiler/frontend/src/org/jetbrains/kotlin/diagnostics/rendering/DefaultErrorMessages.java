@@ -174,6 +174,7 @@ public class DefaultErrorMessages {
         MAP.put(OPT_IN_ARGUMENT_IS_NOT_MARKER, "Annotation ''{0}'' is not an opt-in requirement marker, therefore its usage in @OptIn is ignored", TO_STRING);
         MAP.put(OPT_IN_MARKER_WITH_WRONG_TARGET, "Opt-in requirement marker annotation cannot be used on the following code elements: {0}. Please remove these targets", STRING);
         MAP.put(OPT_IN_MARKER_WITH_WRONG_RETENTION, "Opt-in requirement marker annotation cannot be used with SOURCE retention. Please replace retention with BINARY");
+        MAP.put(OPT_IN_MARKER_WITH_PARAMETERS, "Opt-in requirement marker annotation cannot have parameters");
 
         MAP.put(OPT_IN_MARKER_ON_WRONG_TARGET, "Opt-in requirement marker annotation cannot be used on {0}", STRING);
         MAP.put(OPT_IN_MARKER_ON_OVERRIDE, "Opt-in requirement marker annotation on override requires the same marker on base declaration");

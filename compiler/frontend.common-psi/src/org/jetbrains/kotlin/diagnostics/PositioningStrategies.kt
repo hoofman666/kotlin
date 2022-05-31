@@ -838,6 +838,7 @@ object PositioningStrategies {
         }
     }
 
+    @JvmField
     val NAME_IDENTIFIER: PositioningStrategy<PsiElement> = object : PositioningStrategy<PsiElement>() {
         override fun mark(element: PsiElement): List<TextRange> {
             if (element is PsiNameIdentifierOwner) {

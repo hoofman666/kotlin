@@ -11,7 +11,6 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import kotlin.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.kotlin.config.LanguageFeature;
-import org.jetbrains.kotlin.config.LanguageVersion;
 import org.jetbrains.kotlin.config.LanguageVersionSettings;
 import org.jetbrains.kotlin.descriptors.*;
 import org.jetbrains.kotlin.diagnostics.rendering.DeclarationWithDiagnosticComponents;
@@ -27,7 +26,6 @@ import org.jetbrains.kotlin.name.Name;
 import org.jetbrains.kotlin.psi.*;
 import org.jetbrains.kotlin.resolve.VarianceConflictDiagnosticData;
 import org.jetbrains.kotlin.resolve.calls.inference.InferenceErrorData;
-import org.jetbrains.kotlin.resolve.calls.inference.model.TypeVariableTypeConstructor;
 import org.jetbrains.kotlin.resolve.calls.model.ResolvedCall;
 import org.jetbrains.kotlin.resolve.calls.tower.WrongResolutionToClassifier;
 import org.jetbrains.kotlin.resolve.calls.util.BuilderLambdaLabelingInfo;
@@ -334,6 +332,9 @@ public interface Errors {
     DiagnosticFactory1<KtAnnotationEntry, FqName> OPT_IN_ARGUMENT_IS_NOT_MARKER = DiagnosticFactory1.create(WARNING);
     DiagnosticFactory1<KtAnnotationEntry, String> OPT_IN_MARKER_WITH_WRONG_TARGET = DiagnosticFactory1.create(ERROR);
     DiagnosticFactory0<PsiElement> OPT_IN_MARKER_WITH_WRONG_RETENTION = DiagnosticFactory0.create(ERROR);
+    DiagnosticFactoryForDeprecation0<KtClass> OPT_IN_MARKER_WITH_PARAMETERS = DiagnosticFactoryForDeprecation0.create(
+            LanguageFeature.ForbidOptInMarkersWithParameters, NAME_IDENTIFIER
+    );
 
     DiagnosticFactory1<KtAnnotationEntry, String> OPT_IN_MARKER_ON_WRONG_TARGET = DiagnosticFactory1.create(ERROR);
     DiagnosticFactory0<KtAnnotationEntry> OPT_IN_MARKER_ON_OVERRIDE = DiagnosticFactory0.create(ERROR);

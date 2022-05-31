@@ -14,6 +14,7 @@ import org.jetbrains.kotlin.fir.analysis.diagnostics.FirErrors
 import org.jetbrains.kotlin.diagnostics.reportOn
 import org.jetbrains.kotlin.fir.declarations.FirRegularClass
 import org.jetbrains.kotlin.fir.declarations.getAnnotationByClassId
+import org.jetbrains.kotlin.fir.declarations.primaryConstructorIfAny
 import org.jetbrains.kotlin.resolve.checkers.OptInDescription
 import org.jetbrains.kotlin.resolve.checkers.OptInNames
 
@@ -35,6 +36,9 @@ object FirOptInAnnotationClassChecker : FirRegularClassChecker() {
                 wrongTargets.joinToString(transform = KotlinTarget::description),
                 context
             )
+        }
+        if (declaration.primaryConstructorIfAny(context.session)?.valueParameterSymbols?.isNotEmpty() == true) {
+            reporter.reportOn(declaration.source, FirErrors.OPT_IN_MARKER_WITH_PARAMETERS, context)
         }
     }
 }

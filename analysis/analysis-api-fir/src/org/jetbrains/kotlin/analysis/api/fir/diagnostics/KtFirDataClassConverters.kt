@@ -1048,6 +1048,18 @@ internal val KT_DIAGNOSTIC_CONVERTER = KtDiagnosticConverterBuilder.buildConvert
             token,
         )
     }
+    add(FirErrors.OPT_IN_MARKER_WITH_PARAMETERS.errorFactory) { firDiagnostic ->
+        OptInMarkerWithParametersErrorImpl(
+            firDiagnostic as KtPsiDiagnostic,
+            token,
+        )
+    }
+    add(FirErrors.OPT_IN_MARKER_WITH_PARAMETERS.warningFactory) { firDiagnostic ->
+        OptInMarkerWithParametersWarningImpl(
+            firDiagnostic as KtPsiDiagnostic,
+            token,
+        )
+    }
     add(FirErrors.EXPOSED_TYPEALIAS_EXPANDED_TYPE) { firDiagnostic ->
         ExposedTypealiasExpandedTypeImpl(
             firDiagnostic.a,

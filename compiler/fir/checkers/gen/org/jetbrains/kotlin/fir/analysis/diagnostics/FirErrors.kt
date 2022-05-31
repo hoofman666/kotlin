@@ -10,6 +10,7 @@ import com.intellij.psi.impl.source.tree.LeafPsiElement
 import org.jetbrains.kotlin.KtSourceElement
 import org.jetbrains.kotlin.config.LanguageFeature
 import org.jetbrains.kotlin.config.LanguageFeature.ForbidExposingTypesInPrimaryConstructorProperties
+import org.jetbrains.kotlin.config.LanguageFeature.ForbidOptInMarkersWithParameters
 import org.jetbrains.kotlin.config.LanguageFeature.ForbidUsingExtensionPropertyTypeParameterInDelegate
 import org.jetbrains.kotlin.config.LanguageFeature.ModifierNonBuiltinSuspendFunError
 import org.jetbrains.kotlin.config.LanguageFeature.ProhibitAssigningSingleElementsToVarargsInNamedForm
@@ -271,6 +272,7 @@ object FirErrors {
     val OPT_IN_MARKER_ON_WRONG_TARGET by error1<KtAnnotationEntry, String>()
     val OPT_IN_MARKER_ON_OVERRIDE by error0<KtAnnotationEntry>()
     val OPT_IN_MARKER_ON_OVERRIDE_WARNING by warning0<KtAnnotationEntry>()
+    val OPT_IN_MARKER_WITH_PARAMETERS by deprecationError0<KtClass>(ForbidOptInMarkersWithParameters, SourceElementPositioningStrategies.NAME_IDENTIFIER)
 
     // Exposed visibility
     val EXPOSED_TYPEALIAS_EXPANDED_TYPE by error3<KtNamedDeclaration, EffectiveVisibility, FirBasedSymbol<*>, EffectiveVisibility>(SourceElementPositioningStrategies.DECLARATION_NAME)

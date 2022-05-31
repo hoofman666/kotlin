@@ -37421,6 +37421,18 @@ public class DiagnosticTestGenerated extends AbstractDiagnosticTest {
             }
 
             @Test
+            @TestMetadata("withParameter_after.kt")
+            public void testWithParameter_after() throws Exception {
+                runTest("compiler/testData/diagnostics/testsWithStdLib/experimental/withParameter_after.kt");
+            }
+
+            @Test
+            @TestMetadata("withParameter_before.kt")
+            public void testWithParameter_before() throws Exception {
+                runTest("compiler/testData/diagnostics/testsWithStdLib/experimental/withParameter_before.kt");
+            }
+
+            @Test
             @TestMetadata("wrongTargetsWithoutExplicitTarget.kt")
             public void testWrongTargetsWithoutExplicitTarget() throws Exception {
                 runTest("compiler/testData/diagnostics/testsWithStdLib/experimental/wrongTargetsWithoutExplicitTarget.kt");

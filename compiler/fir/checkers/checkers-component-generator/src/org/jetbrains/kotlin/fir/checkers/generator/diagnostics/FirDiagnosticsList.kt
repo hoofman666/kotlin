@@ -327,6 +327,9 @@ object DIAGNOSTICS_LIST : DiagnosticList("FirErrors") {
         }
         val OPT_IN_MARKER_ON_OVERRIDE by error<KtAnnotationEntry>()
         val OPT_IN_MARKER_ON_OVERRIDE_WARNING by warning<KtAnnotationEntry>()
+        val OPT_IN_MARKER_WITH_PARAMETERS by deprecationError<KtClass>(
+            LanguageFeature.ForbidOptInMarkersWithParameters, PositioningStrategy.NAME_IDENTIFIER
+        )
     }
 
     val EXPOSED_VISIBILITY by object : DiagnosticGroup("Exposed visibility") {
