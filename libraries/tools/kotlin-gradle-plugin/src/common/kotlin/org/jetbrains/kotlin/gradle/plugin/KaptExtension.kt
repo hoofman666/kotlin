@@ -51,6 +51,8 @@ open class KaptExtension: KaptExtensionConfig {
 
     override var keepJavacAnnotationProcessors: Boolean = false
 
+    override var useJvmIr: Boolean = false
+
     override var useBuildCache: Boolean = true
 
     private val apOptionsActions =

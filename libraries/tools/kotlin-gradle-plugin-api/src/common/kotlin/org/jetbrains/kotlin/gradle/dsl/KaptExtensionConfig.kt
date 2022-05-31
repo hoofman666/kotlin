@@ -68,6 +68,12 @@ interface KaptExtensionConfig {
     var keepJavacAnnotationProcessors: Boolean
 
     /**
+     * If `true`, enable the experimental support for the new JVM IR backend, which will allow to use newest language features.
+     * This mode will become the default in a future release.
+     */
+    var useJvmIr: Boolean
+
+    /**
      * Adds annotation processor with the specified [fqName] to the list of processors to run.
      */
     fun annotationProcessor(fqName: String)

@@ -573,6 +573,7 @@ internal fun buildKaptSubpluginOptions(
     pluginOptions += SubpluginOption("keepKdocCommentsInStubs", "${project.isKaptKeepKdocCommentsInStubs()}")
     pluginOptions += SubpluginOption("showProcessorTimings", "${kaptExtension.showProcessorStats}")
     pluginOptions += SubpluginOption("detectMemoryLeaks", kaptExtension.detectMemoryLeaks)
+    pluginOptions += SubpluginOption("useJvmIr", "${kaptExtension.useJvmIr}")
     pluginOptions += SubpluginOption("infoAsWarnings", "${project.isInfoAsWarnings()}")
     pluginOptions += FilesSubpluginOption("stubs", kaptStubsDir)
 
